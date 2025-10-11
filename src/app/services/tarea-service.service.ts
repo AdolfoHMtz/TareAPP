@@ -13,7 +13,9 @@ export class TareaService {
   constructor() {
     this.cargarTareas();
   }
+
   private cargarTareas(): void {
+
     try {
       const tareasGuardadas = localStorage.getItem(this.CLAVE_STORAGE);
       if (tareasGuardadas) {
