@@ -1,0 +1,133 @@
+<ion-header [translucent]="true">
+  <ion-toolbar >
+    <ion-title>Detalles de Tarea</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" color="primary"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" *ngIf="tarea">
+      <ion-button (click)="toggleModoEdicion()" color="primary">
+        <ion-icon [name]="modoEdicion ? 'close-outline' : 'create-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div *ngIf="cargando" class="contenedor">
+    <div class="estado-carga">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p>Cargando tarea...</p>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando && tarea" class="contenedor">
+    <div *ngIf="!modoEdicion">
+      <h2>{{ tarea.nombre }}</h2>
+
+      <div>
+        <h3>Descripción</h3>
+        <p>{{ tarea.descripcion }}</p>
+      </div>
+
+      <div>
+        <h3>Fecha de Vencimiento</h3>
+        <p>{{ formatearFecha(tarea.fecha) }}</p>
+      </div>
+
+      <div>
+        <h3>Fecha de Creación</h3>
+        <p>{{ formatearFecha(tarea.fechaCreacion.split('T')[0]) }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="modoEdicion">
+      <h3>Editar Tarea</h3>
+
+      <form [formGroup]="formularioTarea">
+        <div>
+          <ion-item>
+            <ion-label position="stacked">Nombre de la Tarea *</ion-label>
+            <ion-input
+              formControlName="nombre"
+              placeholder="Ingresa el nombre de la tarea">
+            </ion-input>
+          </ion-item>
+          <div *ngIf="formularioTarea.get('nombre')?.invalid && formularioTarea.get('nombre')?.touched">
+            <ion-text color="danger">
+              <small>El nombre de la tarea es obligatorio</small>
+            </ion-text>
+          </div>
+        </div>
+
+        <div>
+          <ion-item>
+            <ion-label position="stacked">Descripción *</ion-label>
+            <ion-textarea
+              formControlName="descripcion"
+              placeholder="Describe tu tarea"
+              rows="3">
+            </ion-textarea>
+          </ion-item>
+          <div *ngIf="formularioTarea.get('descripcion')?.invalid && formularioTarea.get('descripcion')?.touched">
+            <ion-text color="danger">
+              <small>La descripción de la tarea es obligatoria</small>
+            </ion-text>
+          </div>
+        </div>
+
+        <div>
+          <ion-item>
+            <ion-label position="stacked">Fecha de Vencimiento *</ion-label>
+            <ion-input
+              type="date"
+              formControlName="fecha">
+            </ion-input>
+          </ion-item>
+          <div *ngIf="formularioTarea.get('fecha')?.invalid && formularioTarea.get('fecha')?.touched">
+            <ion-text color="danger">
+              <small>La fecha de vencimiento es obligatoria</small>
+            </ion-text>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="botones">
+      <div *ngIf="!modoEdicion">
+        <ion-button
+          expand="block"
+          color="primary"
+          (click)="toggleModoEdicion()">
+          Editar Tarea
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          color="danger"
+          (click)="eliminarTarea()">
+          Eliminar Tarea
+        </ion-button>
+      </div>
+
+      <div *ngIf="modoEdicion">
+        <ion-button
+          expand="block"
+          color="primary"
+          (click)="guardarCambios()"
+          [disabled]="formularioTarea.invalid">
+          Guardar Cambios
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          color="medium"
+          (click)="toggleModoEdicion()">
+          Cancelar
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

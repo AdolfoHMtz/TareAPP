@@ -1,27 +1,218 @@
-#container {
-  text-align: center;
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: #1a1a1a;
+  color: #ffffff;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  .seccion-bienvenida {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .titulo-bienvenida {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 15px 0;
+      color: #ffffff;
+    }
+
+    .subtitulo-bienvenida {
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: 300;
+      color: #b0b0b0;
+    }
+  }
+
+  .seccion-acciones {
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 400px;
+
+    .boton-crear-tarea {
+      --border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      height: 60px;
+
+      ion-icon {
+        font-size: 1.4rem;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .seccion-tareas {
+    background: #2a2a2a;
+    border-radius: 16px;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+    .encabezado-seccion {
+      margin-bottom: 25px;
+
+      h2 {
+        color: #ffffff;
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+    .estado-carga {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+
+      ion-spinner {
+        margin-bottom: 15px;
+      }
+
+      p {
+        color: #b0b0b0;
+        margin: 0;
+        font-size: 1rem;
+      }
+    }
+
+    .estado-vacio {
+      text-align: center;
+      padding: 30px 20px;
+
+      ion-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        color: #666666;
+      }
+
+      p {
+        color: #b0b0b0;
+        margin: 8px 0;
+
+        &:first-of-type {
+          font-size: 1.2rem;
+          font-weight: 500;
+          color: #ffffff;
+        }
+
+        &.subtitulo-vacio {
+          font-size: 1rem;
+          color: #888888;
+        }
+      }
+    }
+
+    .lista-tareas {
+      .tarea-item {
+        --background: #2a2a2a;
+        --color: #ffffff;
+        margin-bottom: 10px;
+        border-radius: 8px;
+
+        .tarea-info {
+          flex: 1;
+          padding: 10px 0;
+
+          h3 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0 0 5px 0;
+          }
+
+          p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin: 0 0 5px 0;
+          }
+
+          small {
+            color: #888888;
+            font-size: 0.8rem;
+          }
+        }
+
+        ion-button {
+          --color: var(--ion-color-primary);
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
+// Diseño responsivo
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 20px;
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+    .seccion-bienvenida {
+      margin-bottom: 30px;
 
-  color: #8c8c8c;
+      .titulo-bienvenida {
+        font-size: 2rem;
+      }
 
-  margin: 0;
-}
+      .subtitulo-bienvenida {
+        font-size: 1rem;
+      }
+    }
 
-#container a {
-  text-decoration: none;
+    .seccion-acciones {
+      margin-bottom: 30px;
+
+      .boton-crear-tarea {
+        height: 55px;
+        font-size: 1rem;
+      }
+    }
+
+    .seccion-tareas {
+      padding: 20px;
+
+      .lista-tareas {
+        .tarea-card {
+          ion-card-content {
+            padding: 15px;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .tarea-info {
+              margin-right: 0;
+              margin-bottom: 15px;
+              width: 100%;
+
+              .tarea-nombre {
+                font-size: 1.1rem;
+              }
+
+              .tarea-descripcion {
+                font-size: 0.85rem;
+              }
+
+              .tarea-fecha {
+                font-size: 0.8rem;
+              }
+            }
+
+            .tarea-acciones {
+              width: 100%;
+
+              ion-button {
+                width: 100%;
+                height: 36px;
+                font-size: 0.85rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

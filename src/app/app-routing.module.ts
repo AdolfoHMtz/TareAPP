@@ -11,6 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'tarea',
+    loadChildren: () => import('./pages/tarea/tarea.module').then( m => m.TareaPageModule)
+  },
+  {
+    path: 'tarea-detalles/:id',
+    loadChildren: () => import('./pages/tarea-detalles/tarea-detalles.module').then( m => m.TareaDetallesPageModule)
+  },
 ];
 
 @NgModule({

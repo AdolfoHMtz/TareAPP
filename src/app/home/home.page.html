@@ -1,20 +1,65 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+     TareAPP
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="contenedor">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div class="seccion-bienvenida">
+      <h1 class="titulo-bienvenida">Gestiona tus Tareas</h1>
+      <p class="subtitulo-bienvenida">Organiza tu día y mantente productivo</p>
+    </div>
+
+    <div class="seccion-acciones">
+      <ion-button
+        (click)="irCrearTarea()"
+        class="boton-crear-tarea"
+        expand="block"
+        fill="solid"
+        color="primary"
+        size="large">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Crear Nueva Tarea
+      </ion-button>
+    </div>
+
+    <div class="seccion-tareas">
+      <div class="encabezado-seccion">
+        <h2>Mis Tareas</h2>
+      </div>
+
+      <div *ngIf="cargando" class="estado-carga">
+        <ion-spinner name="crescent" color="primary"></ion-spinner>
+        <p>Cargando tareas...</p>
+      </div>
+
+      <div *ngIf="!cargando && tareas.length === 0" class="estado-vacio">
+        <ion-icon name="document-text-outline" color="medium"></ion-icon>
+        <p>No tienes tareas aún</p>
+        <p class="subtitulo-vacio">¡Crea tu primera tarea para comenzar!</p>
+      </div>
+
+      <div *ngIf="!cargando && tareas.length > 0" class="lista-tareas">
+        <ion-item *ngFor="let tarea of tareas" class="tarea-item">
+          <div class="tarea-info">
+            <h3>{{ tarea.nombre }}</h3>
+            <p>{{ tarea.descripcion }}</p>
+            <small>Vence: {{ formatearFecha(tarea.fecha) }}</small>
+          </div>
+          <ion-button
+            slot="end"
+            fill="clear"
+            color="primary"
+            (click)="verDetalles(tarea.id)">
+            Ver Detalles
+          </ion-button>
+        </ion-item>
+      </div>
+    </div>
+
   </div>
 </ion-content>
